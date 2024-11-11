@@ -106,7 +106,8 @@ class _HomeScreenState extends State<HomeScreen> {
     double verticalPadding = screenHeight * 0.02;
 
     return Scaffold(
-      backgroundColor: Colors.blue[50],
+      // backgroundColor: Color(0xFF2A3663),
+      backgroundColor: Theme.of(context).colorScheme.surface,
       body: Padding(
         padding: EdgeInsets.symmetric(
           horizontal: horizontalPadding,
@@ -114,9 +115,11 @@ class _HomeScreenState extends State<HomeScreen> {
         ),
         child: SingleChildScrollView(
           child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              Image.asset('assets/images/The McPherson University logo.jpg', width: 100),
+              Image.asset('assets/images/The McPherson University logo.jpg',
+                  width: 100),
               SizedBox(height: 20),
 
               // Login Text
@@ -154,6 +157,17 @@ class _HomeScreenState extends State<HomeScreen> {
                 obscureText: true,
                 labelText: 'Password',
               ),
+
+              SizedBox(height: 8),
+
+              TextButton(
+                  onPressed: () {
+                    // here we will show an error like message
+                    String errorMessage = 'Contact the admin!';
+                    showWindowsStyleErrorDialog(context, errorMessage);
+                  },
+                  child: Text('Don\'t have an account yet?')),
+
               SizedBox(height: 20),
 
               // Login button
@@ -166,6 +180,9 @@ class _HomeScreenState extends State<HomeScreen> {
                   passwordController.clear();
                 },
                 icon: Icon(Icons.arrow_forward),
+                style: ButtonStyle(
+                    // shape: WidgetSta
+                    ),
               ),
             ],
           ),
