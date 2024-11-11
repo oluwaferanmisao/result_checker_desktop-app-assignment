@@ -10,21 +10,35 @@ class ResultsPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Theme.of(context).colorScheme.surface,
       appBar: AppBar(
         title: Center(
           child: Text('Results Page'),
         ),
       ),
-      body: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: results.entries.map((entry) {
-          return Center(
-            child: Text(
-              '${entry.key}: \t${entry.value}',
-              style: TextStyle(fontSize: 18),
+      body: Stack(
+        children: [
+          Center(
+            child: Opacity(
+              opacity: 0.08,
+              child: Image.asset(
+                'assets/images/School Doodle.png',
+                color: Colors.grey,
+              ),
             ),
-          );
-        }).toList(),
+          ),
+          Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: results.entries.map((entry) {
+              return Center(
+                child: Text(
+                  '${entry.key}: \t${entry.value}',
+                  style: TextStyle(fontSize: 18),
+                ),
+              );
+            }).toList(),
+          ),
+        ],
       ),
     );
   }
