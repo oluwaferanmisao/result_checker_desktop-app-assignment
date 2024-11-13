@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:result_checker/pages/courses_search.dart';
 import 'package:result_checker/pages/results.dart';
 import 'package:result_checker/students_data.dart';
 import 'package:result_checker/widgets/my_textfield.dart';
@@ -54,12 +55,14 @@ class _HomeScreenState extends State<HomeScreen> {
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(8.0),
           ),
+          backgroundColor: Theme.of(context).colorScheme.surface,
           titlePadding: EdgeInsets.all(16.0),
           contentPadding: EdgeInsets.all(16.0),
           title: Row(
+            crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              Icon(Icons.error, color: Colors.red, size: 30),
-              SizedBox(width: 8),
+              Icon(Icons.error, color: Theme.of(context).colorScheme.error),
+              SizedBox(width: 5),
               Text(
                 'Error',
                 style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
@@ -180,12 +183,19 @@ class _HomeScreenState extends State<HomeScreen> {
 
               // Login button
               ElevatedButton.icon(
-                label: Text('Check Result!'),
+                label: Text('Login'),
                 onPressed: () {
-                  login();
-                  emailController.clear();
-                  matricNoController.clear();
-                  passwordController.clear();
+                  // login();
+                  // emailController.clear();
+                  // matricNoController.clear();
+                  // passwordController.clear();
+
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => CoursesSearch(),
+                    ),
+                  );
                 },
                 icon: Icon(Icons.arrow_forward),
                 style: ButtonStyle(
@@ -196,6 +206,9 @@ class _HomeScreenState extends State<HomeScreen> {
                   ),
                 ),
               ),
+
+              // little space for beneath the login button
+              SizedBox(height: 10),
             ],
           ),
         ),
@@ -208,6 +221,7 @@ class _HomeScreenState extends State<HomeScreen> {
       context: context,
       builder: (context) {
         return AlertDialog(
+          backgroundColor: Theme.of(context).colorScheme.surface,
           title: Center(
             child: Row(
               children: [
