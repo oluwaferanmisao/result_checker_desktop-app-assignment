@@ -106,7 +106,15 @@ class _HomeScreenState extends State<HomeScreen> {
     double verticalPadding = screenHeight * 0.02;
 
     return Scaffold(
-      // backgroundColor: Color(0xFF2A3663),
+      appBar: AppBar(
+        leading: IconButton(
+          onPressed: infoBox,
+          icon: Icon(
+            color: Theme.of(context).colorScheme.secondary,
+            Icons.info,
+          ),
+        ),
+      ),
       backgroundColor: Theme.of(context).colorScheme.surface,
       body: Padding(
         padding: EdgeInsets.symmetric(
@@ -172,7 +180,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
               // Login button
               ElevatedButton.icon(
-                label: Text('Login'),
+                label: Text('Check Result!'),
                 onPressed: () {
                   login();
                   emailController.clear();
@@ -181,13 +189,53 @@ class _HomeScreenState extends State<HomeScreen> {
                 },
                 icon: Icon(Icons.arrow_forward),
                 style: ButtonStyle(
-                    // shape: WidgetSta
+                  shape: WidgetStatePropertyAll(
+                    RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(8),
                     ),
+                  ),
+                ),
               ),
             ],
           ),
         ),
       ),
+    );
+  }
+
+  void infoBox() {
+    showDialog(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          title: Center(
+            child: Row(
+              children: [
+                Image.asset(
+                  'assets/images/The McPherson University logo.jpg',
+                  width: 40,
+                ),
+                SizedBox(width: 5),
+                Text('Creators Name',
+                    style: TextStyle(fontWeight: FontWeight.bold)),
+              ],
+            ),
+          ),
+          content: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Text('Aludo Charles - 220202007 '),
+              Text('Sao Oluwaferanmi - 220202017 '),
+              Text('Osawemen Riccardo - 230501037'),
+              Text('Ekeledirichukwu Samuel 220202022'),
+              Text('Umanah-Eno Abasi - 220202008'),
+              Text('Judah Muyiwa - 230501040'),
+              Text('Tonade Tolulope - 230501042'),
+              Text('Gbadebo Oluwanifemi - 220202011'),
+            ],
+          ),
+        );
+      },
     );
   }
 }

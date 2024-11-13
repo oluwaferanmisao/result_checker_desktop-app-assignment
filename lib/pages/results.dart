@@ -20,10 +20,10 @@ class ResultsPage extends StatelessWidget {
         children: [
           Center(
             child: Opacity(
-              opacity: 0.08,
+              opacity: 0.1,
               child: Image.asset(
-                'assets/images/School Doodle.png',
-                color: Colors.grey,
+                'assets/images/The McPherson University logo.jpg',
+                // color: Colors.grey,
               ),
             ),
           ),

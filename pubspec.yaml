@@ -47,6 +47,11 @@ dev_dependencies:
   # package. See that file for information about deactivating specific lint
   # rules and activating additional ones.
   flutter_lints: ^5.0.0
+  inno_bundle: ^0.7.4
+
+inno_bundle:
+ id: c713c15c-5b8e-5362-accc-e366f15f937e
+ publisher: Group One (Human Computer Interface)
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
