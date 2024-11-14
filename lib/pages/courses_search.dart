@@ -1,4 +1,9 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
+import 'package:result_checker/models/students.dart';
+import 'package:result_checker/pages/results.dart';
+import 'package:result_checker/students_data.dart';
 
 class CoursesSearch extends StatefulWidget {
   const CoursesSearch({super.key});
@@ -7,24 +12,52 @@ class CoursesSearch extends StatefulWidget {
   State<CoursesSearch> createState() => _CoursesSearchState();
 }
 
-List<DropdownMenuItem<String>> get dropdownItems {
-  List<DropdownMenuItem<String>> menuItems = [
-    DropdownMenuItem(value: "CSC101", child: Text("CSC101")),
-    DropdownMenuItem(value: "MAT102", child: Text("MAT102")),
-    DropdownMenuItem(value: "PHY105", child: Text("PHY105")),
-    DropdownMenuItem(value: "ENG201", child: Text("ENG201")),
-    DropdownMenuItem(value: "BIO110", child: Text("BIO110")),
-    DropdownMenuItem(value: "HIS205", child: Text("HIS205")),
-    DropdownMenuItem(value: "CHM120", child: Text("CHM120")),
-    DropdownMenuItem(value: "ECO101", child: Text("ECO101")),
-    DropdownMenuItem(value: "PSY100", child: Text("PSY100")),
-    DropdownMenuItem(value: "SOC150", child: Text("SOC150")),
-  ];
-  return menuItems;
-}
-
 class _CoursesSearchState extends State<CoursesSearch> {
-  var _selectedCourse;
+  String? selectedCourse;
+  List<String> courses = [
+    'CSC101',
+    'MAT102',
+    'PHY105',
+    'ENG201',
+    'BIO110',
+    'HIS205',
+    'CHM120',
+    'ECO101',
+    'PSY100',
+    'SOC150',
+  ];
+
+  void showResult() {
+    if (selectedCourse != null) {
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => ResultScreen(course: selectedCourse!),
+        ),
+      );
+    } else {
+      // Handle case where no course is selected
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('Please select a course')),
+      );
+    }
+  }
+
+  void cumulResult() {
+    for (var map in students) {
+      if (map['results'] != null) {
+        var values = map['results'].values.toList();
+        showDialog(
+          context: context,
+          builder: (context) {
+            return AlertDialog(
+              content: Text('$courses: \n$values'),
+            );
+          },
+        );
+      }
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -47,7 +80,12 @@ class _CoursesSearchState extends State<CoursesSearch> {
                 horizontal: horizontalPadding,
                 vertical: verticalPadding,
               ),
-              items: dropdownItems,
+              items: courses.map((course) {
+                return DropdownMenuItem(
+                  value: course,
+                  child: Text(course),
+                );
+              }).toList(),
               style: TextStyle(color: Theme.of(context).colorScheme.primary),
               hint: Text(
                 'Select a course ',
@@ -60,12 +98,12 @@ class _CoursesSearchState extends State<CoursesSearch> {
                 color: Theme.of(context).colorScheme.primary,
               ),
               dropdownColor: Theme.of(context).colorScheme.surface,
-              value: _selectedCourse,
+              value: selectedCourse,
               elevation: 3,
               borderRadius: BorderRadius.circular(8),
-              onChanged: (selectedCourse) {
+              onChanged: (value) {
                 setState(() {
-                  _selectedCourse = selectedCourse;
+                  selectedCourse = value;
                 });
               },
             ),
@@ -75,8 +113,8 @@ class _CoursesSearchState extends State<CoursesSearch> {
 
           // Button Widget
           ElevatedButton.icon(
-            onPressed: () {},
-            label: Text('Search'),
+            onPressed: showResult,
+            label: Text('Show Result!'),
             icon: Icon(Icons.arrow_forward),
             style: ButtonStyle(
               shape: WidgetStatePropertyAll(
@@ -85,8 +123,41 @@ class _CoursesSearchState extends State<CoursesSearch> {
                 ),
               ),
             ),
-          )
+          ),
+
+          SizedBox(height: 15),
+
+          // Second button widget
+          ElevatedButton.icon(
+            onPressed: cumulResult,
+            label: Text('Cumulative Result'),
+            icon: Icon(Icons.plus_one_outlined),
+            style: ButtonStyle(
+              shape: WidgetStatePropertyAll(
+                RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(8),
+                ),
+              ),
+            ),
+          ),
         ],
+      ),
+    );
+  }
+}
+
+class ResultScreen extends StatelessWidget {
+  final String course;
+  int randomNumber = Random().nextInt(80) + 10;
+
+  ResultScreen({super.key, required this.course});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(title: Text('$course Result')),
+      body: Center(
+        child: Text('Score for $course is $randomNumber'),
       ),
     );
   }

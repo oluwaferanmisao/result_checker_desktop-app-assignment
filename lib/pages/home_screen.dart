@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:result_checker/pages/courses_search.dart';
-import 'package:result_checker/pages/results.dart';
 import 'package:result_checker/students_data.dart';
 import 'package:result_checker/widgets/my_textfield.dart';
 
@@ -37,7 +36,7 @@ class _HomeScreenState extends State<HomeScreen> {
       Navigator.push(
         context,
         MaterialPageRoute(
-          builder: (context) => ResultsPage(results: student['results']),
+          builder: (context) => CoursesSearch(),
         ),
       );
     } else {
@@ -185,17 +184,11 @@ class _HomeScreenState extends State<HomeScreen> {
               ElevatedButton.icon(
                 label: Text('Login'),
                 onPressed: () {
-                  // login();
-                  // emailController.clear();
-                  // matricNoController.clear();
-                  // passwordController.clear();
+                  login();
+                  emailController.clear();
+                  matricNoController.clear();
+                  passwordController.clear();
 
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => CoursesSearch(),
-                    ),
-                  );
                 },
                 icon: Icon(Icons.arrow_forward),
                 style: ButtonStyle(
