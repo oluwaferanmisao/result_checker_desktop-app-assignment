@@ -1,0 +1,5 @@
+*.dart linguist-language=Dart
+*.cpp linguist-generated=true
+*.h linguist-generated=true
+*.cmake linguist-generated=true
+CMakeLists.txt linguist-generated=true
